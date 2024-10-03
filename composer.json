@@ -1,26 +1,41 @@
 {
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/fhauze/sanitizer.git"
-    }
-  ],
-  "require": {
-    "fir2be/sanitizer": "dev-main"
-  }
-},
-{
     "name": "fir2be/sanitizer",
-    "description": "A package for detecting SQL injection and executable files.",
+    "description": "A security sanitizer package for Laravel to prevent SQL injection and executable file uploads.",
+    "keywords": ["security", "sanitizer", "sql injection", "file validation", "middleware"],
     "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fir2be",
+            "email": "fauzgabriel@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "^7.2 || ^8.0",
-        "ext-magic": "*"
+        "php": ">=7.2",
+        "ext-magic": "*",
+        "illuminate/support": "^8.0|^9.0|^10.0"
     },
     "autoload": {
         "psr-4": {
-            "fir2be\\Sanitizer\\": "src/"
+            "Fir2be\\Sanitizer\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fir2be\\Sanitizer\\SanitizerServiceProvider"
+            ],
+            "aliases": {
+                "Sanitizer": "Fir2be\\Sanitizer\\Facades\\Sanitizer"
+            }
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true
