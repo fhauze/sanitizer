@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "For2be\\Sanitizer\\SanitizerServiceProvider"
+                "Fir2be\\Sanitizer\\SanitizerServiceProvider"
             ],
             "aliases": {
                 "Sanitizer": "Fir2be\\Sanitizer\\Facades\\Sanitizer"
