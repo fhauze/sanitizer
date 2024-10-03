@@ -13,7 +13,6 @@
     ],
     "require": {
         "php": ">=7.2",
-        "ext-magic": "*",
         "illuminate/support": "^8.0|^9.0|^10.0"
     },
     "autoload": {
@@ -24,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Fir2be\\Sanitizer\\SanitizerServiceProvider"
+                "For2be\\Sanitizer\\SanitizerServiceProvider"
             ],
             "aliases": {
                 "Sanitizer": "Fir2be\\Sanitizer\\Facades\\Sanitizer"

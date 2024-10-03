@@ -1,6 +1,6 @@
 <?php
 
-namespace YourVendor\SecurityDetector;
+namespace Fir2be\Sanitizer;
 
 use Illuminate\Support\ServiceProvider;
 

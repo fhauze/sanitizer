@@ -1,33 +1,49 @@
 <?php
 
-namespace YourVendor\SecurityDetector\Http\Middleware;
+namespace Fir2be\Sanitizer\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DetectInjectionMiddleware
+class SanitizerMiddleware
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function handle(Request $request, Closure $next): Response
     {
+        // Cek semua input dari request
         $input = $request->all();
-        $pythonScriptPath = base_path('packages/YourVendor/SecurityDetector/src/Python/security_detector.py');
 
+        // Tentukan path ke skrip Python
+        $pythonScriptPath = base_path('vendor/fir2be/sanitizer/src/Python/Sanitizer.py');
+
+        // Cek setiap input
         foreach ($input as $key => $value) {
+            // Jika input adalah file
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
                 $filePath = $file->getPathname();
 
-                $command = "python3 $pythonScriptPath \"$filePath\"";
+                // Jalankan program Python untuk memeriksa file
+                $command = escapeshellcmd("python3 $pythonScriptPath file \"$filePath\"");
                 $result = shell_exec($command);
 
-                if (strpos($result, "Potential injection detected!") !== false || strpos($result, "Potential executable file detected!") !== false) {
-                    return response()->json(['error' => 'Potential security threat detected!'], 403);
+                // Jika terdeteksi file executable, kembalikan respons error
+                if (strpos($result, "Potential executable file detected!") !== false) {
+                    return response()->json(['error' => 'Executable file detected!'], 403);
                 }
             } else {
-                $command = "python3 $pythonScriptPath \"$value\"";
+                // Jalankan program Python untuk input string
+                $command = escapeshellcmd("python3 $pythonScriptPath string \"$value\"");
                 $result = shell_exec($command);
 
+                // Jika terdeteksi injeksi, kembalikan respons error
                 if (strpos($result, "Potential injection detected!") !== false) {
                     return response()->json(['error' => 'Potential security threat detected!'], 403);
                 }
