@@ -1,0 +1,16 @@
+{
+    "name": "yourvendor/security-detector",
+    "description": "A package for detecting SQL injection and executable files.",
+    "type": "library",
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "ext-magic": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "YourVendor\\SecurityDetector\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
