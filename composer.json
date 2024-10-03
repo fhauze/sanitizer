@@ -1,20 +1,9 @@
 {
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/fhauze/sanitizer.git"
-    }
-  ],
-  "require": {
-    "fir2be/sanitizer": "dev-main"
-  }
-}
-{
     "name": "fir2be/sanitizer",
     "description": "A package for detecting SQL injection and executable files.",
     "type": "library",
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.3 || ^8.0",
         "ext-magic": "*"
     },
     "autoload": {
